@@ -1,6 +1,27 @@
 let AShiApp = angular.module('AShiApp', ['ngAnimate']);
 
-AShiApp.controller("ParentCtrl", function($scope, $http) { });
+AShiApp.controller("ParentCtrl", function($scope, $http) {
+	$scope.getASdata = function(asNumber) {
+		// on crée une requête
+		let req = {
+			method : 'GET',
+			url : 'https://rdap.arin.net/registry/autnum/' + asNumber,
+			headers: {'Content-Type': 'application/rdap+json'},
+		};
+		// on récupère les info d'AS
+		$http(req).then(
+			// si la requête passe :
+			function(response) {
+				console.log(response.data);
+				// on envoie les données pour traitement
+			},
+			// si la requête échoue :
+			function(error) {
+				console.log(error);
+			}
+		);
+	};
+ });
 
 AShiApp.controller("graphNetwork", function($scope, $rootScope, $http) {
 	// partie gestion du graph

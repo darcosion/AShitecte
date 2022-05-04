@@ -22,9 +22,9 @@
     <body ng-controller="ParentCtrl">
         <!-- Formulaire de recherche -->
         <div>
-            <div>Numéro d'AS : </div>
-            <input label="ID" >
-            <button>valider</button>
+            <div >Numéro d'AS : </div>
+            <input ng-model="asNumber" label="ID" >
+            <button ng-click="getASdata(asNumber)">valider</button>
         </div>
 
         <!-- fenêtre de vue du graphe -->
