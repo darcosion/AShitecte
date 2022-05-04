@@ -13,6 +13,28 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 			// si la requête passe :
 			function(response) {
 				console.log(response.data);
+				$scope.getASneighbours(asNumber);
+				// on envoie les données pour traitement
+			},
+			// si la requête échoue :
+			function(error) {
+				console.log(error);
+			}
+		);
+	};
+
+	$scope.getASneighbours = function(asNumber) {
+		// on crée une requête
+		let req = {
+			method : 'GET',
+			url : 'https://stat.ripe.net/data/asn-neighbours/data.json?resource=AS' + asNumber,
+			headers: {'Content-Type': 'application/json'},
+		};
+		// on récupère les info d'AS
+		$http(req).then(
+			// si la requête passe :
+			function(response) {
+				console.log(response.data);
 				// on envoie les données pour traitement
 			},
 			// si la requête échoue :
