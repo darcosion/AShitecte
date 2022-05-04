@@ -19,7 +19,19 @@
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='main.css')}}"></link>
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/icone/favicon.png')}}"/>
     </head>
-    <body>
-        <p>test</p>
+    <body ng-controller="ParentCtrl">
+        <!-- Formulaire de recherche -->
+        <div>
+            <div>Numéro d'AS : </div>
+            <input label="ID" >
+            <button>valider</button>
+        </div>
+
+        <!-- fenêtre de vue du graphe -->
+        <div id="placeNetwork" ng-controller="graphNetwork">
+            <div id="mynetwork"></div>
+        </div>
+
+        <script type="text/javascript" src="{{ url_for('static', filename='main.js')}}"></script>
     </body>
 </html>

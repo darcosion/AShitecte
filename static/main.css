@@ -1,0 +1,17 @@
+
+body {
+    min-height: 100vh;
+    min-width: 100vh;
+}
+
+/* le graph */
+#placeNetwork {
+    width: 90vh;
+    height: 90vh;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+#mynetwork{
+
+}
