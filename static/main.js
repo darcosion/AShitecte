@@ -1,6 +1,8 @@
-let AShiApp = angular.module('AShiApp', ['ngAnimate']);
+let AShiApp = angular.module('AShiApp', ['ngAnimate', 'ngMaterial', 'ngMessages']);
 
 AShiApp.controller("ParentCtrl", function($scope, $http) {
+
+	// fonction de récupération d'information basique sur AS
 	$scope.getASdata = function(asNumber) {
 		// on crée une requête
 		let req = {
@@ -23,6 +25,7 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 		);
 	};
 
+	// fonction de récupération de voisins d'AS
 	$scope.getASneighbours = function(asNumber) {
 		// on crée une requête
 		let req = {

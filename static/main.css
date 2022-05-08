@@ -1,7 +1,43 @@
 
+:root {
+    /* palette de couleur de base */
+    --color-background-default: #090b0a;  /* var(--color-background-default) */
+    --color-solid-flash-border: #d2fafb; /* var(--color-solid-flash-border) */
+    --color-solid-vicious-border: #d69c3f; /* var(--color-solid-vicious-border) */
+    --color-text: #dcf4f3; /* var(--color-text) */
+}
+
 body {
     min-height: 100vh;
     min-width: 100vh;
+    background-color: black;
+    color: var(--color-text);
+}
+
+.header_form {
+    height: 10vh;
+    width: 100vh;
+    min-width: 100%;
+
+    background-color: var(--color-background-default);
+    color: var(--color-text);
+
+    border-bottom: solid;
+    border-bottom-color: var(--color-solid-flash-border);
+    border-bottom-width: 1px;
+    box-shadow: rgba(210, 250, 251, 0.6) 0px 2px 18px 0px;
+}
+
+md-input-container label {
+    color: var(--color-text) !important;
+    opacity: 0.8;
+}
+
+.ASHbutton {
+    border-style: solid;
+    border-bottom-color: var(--color-solid-flash-border);
+    border-width: 1px;
+    box-shadow: rgba(210, 250, 251, 0.1) 0px 10px 15px -3px, rgba(210, 250, 251, 0.05) 0px 4px 6px -2px;
 }
 
 /* le graph */
@@ -9,9 +45,14 @@ body {
     width: 90vh;
     height: 90vh;
     min-width: 100%;
-    min-height: 100%;
 }
 
 #mynetwork{
-
+    width: 95%;
+    height: 95%;
+    background-image: radial-gradient(#041f3b, #03060b);
+    border-style: solid;
+    border-color: var(--color-solid-vicious-border);
+    border-width: 1px;
+    box-shadow: rgba(214, 156, 63, 0.6) 0px 30px 60px -12px, rgba(255, 255, 255, 0.3) 0px 18px 36px -18px;
 }

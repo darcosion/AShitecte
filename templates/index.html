@@ -8,9 +8,15 @@
         <script type="text/javascript" src="{{ url_for('static', filename='js/layout-base.js')}}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/cose-base.js')}}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/cytoscape-fcose.js')}}"></script>    
-        <script type="text/javascript" src="{{ url_for('static', filename='js/angular.min.js')}}"></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='js/angular-animate.min.js')}}"></script>
+        
+        <script type="text/javascript" src="{{ url_for('static', filename='js/angular.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/angular-messages.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/angular-aria.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/angular-animate.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/angular-material.min.js') }}"></script>
+        
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/angular-csp.min.css')}}"></link>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/angular-material.min.css') }}">
     
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css')}}"></link>
     
@@ -21,14 +27,23 @@
     </head>
     <body ng-controller="ParentCtrl">
         <!-- Formulaire de recherche -->
-        <div>
-            <div >Numéro d'AS : </div>
-            <input ng-model="asNumber" label="ID" >
-            <button ng-click="getASdata(asNumber)">valider</button>
+        <div class="header_form d-flex justify-content-around align-items-center">
+            <div>
+                <md-button md-no-ink class="" ng-click="getASdata(asNumber)">AShitecte</md-button>
+            </div>
+            <div>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Numéro d'AS : </label>
+                    <input ng-model="asNumber">
+                </md-input-container>
+            </div>
+            <div>
+                <md-button md-no-ink class="ASHbutton" ng-click="getASdata(asNumber)">valider</md-button>
+            </div>
         </div>
 
         <!-- fenêtre de vue du graphe -->
-        <div id="placeNetwork" ng-controller="graphNetwork">
+        <div id="placeNetwork" class="d-flex justify-content-around align-items-center" ng-controller="graphNetwork">
             <div id="mynetwork"></div>
         </div>
 
