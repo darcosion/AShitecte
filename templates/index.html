@@ -28,17 +28,32 @@
     <body ng-controller="ParentCtrl">
         <!-- Formulaire de recherche -->
         <div class="header_form d-flex justify-content-around align-items-center">
-            <div>
-                <md-button md-no-ink class="" ng-click="getASdata(asNumber)">AShitecte</md-button>
+            <div class="header_form_left d-flex justify-content-around align-items-center"
+                ng-class="{'reduced_left': ASresolving}">
+                <div>
+                    <md-button md-no-ink class="" ng-click="getASdata(asNumber)">AShitecte</md-button>
+                </div>
+                <div>
+                    <md-input-container class="md-block ASHinput" flex-gt-sm>
+                        <label>Numéro d'AS : </label>
+                        <input ng-model="asNumber">
+                    </md-input-container>
+                </div>
+                <div>
+                    <md-button md-no-ink class="ASHbutton" ng-click="getASdata(asNumber)">valider</md-button>
+                </div>
             </div>
-            <div>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label>Numéro d'AS : </label>
-                    <input ng-model="asNumber">
-                </md-input-container>
-            </div>
-            <div>
-                <md-button md-no-ink class="ASHbutton" ng-click="getASdata(asNumber)">valider</md-button>
+            <div class="header_form_right d-flex justify-content-around align-items-center"
+            ng-class="{'displaced_left': ASresolving}">
+                <div class="md-block align-self-center ">
+                    AS{{"{{asNumber}}"}}
+                </div>
+                <div class="md-block">
+                    <md-button md-no-ink class="ASHbutton">AS Info</md-button>
+                </div>
+                <div class="md-block">
+                    <md-button md-no-ink class="ASHbutton">Actions</md-button>
+                </div>
             </div>
         </div>
 
