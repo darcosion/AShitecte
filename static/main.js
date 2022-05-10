@@ -5,7 +5,7 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 	$scope.ASdata = {
 		'ASnumber' : undefined, 
 		'ASname' : undefined,
-		'data' : undefined
+		'data' : {}
 	};
 
 	// fonction de récupération d'information basique sur AS

@@ -81,7 +81,6 @@ md-input-container:not(.md-input-invalid) .md-errors-spacer {
     box-shadow: rgba(210, 250, 251, 0.1) 0px 10px 15px -3px, rgba(210, 250, 251, 0.05) 0px 4px 6px -2px;
 }
   
-  
 /* le graph */
 #placeNetwork {
     width: 90vh;
