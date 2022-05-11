@@ -2,6 +2,8 @@ let AShiApp = angular.module('AShiApp', ['ngAnimate', 'ngMaterial', 'ngMessages'
 
 AShiApp.controller("ParentCtrl", function($scope, $http) {
 	$scope.ASresolving = false;
+	$scope.ASDataMenu = false;
+	$scope.ASActionMenu = false;
 	$scope.ASdata = {
 		'ASnumber' : undefined, 
 		'ASname' : undefined,
@@ -23,9 +25,8 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 				$scope.ASresolving = true;
 				$scope.asNumber = asNumber;
 				console.log(response.data);
+				$scope.ASdata['data']['metadata'] = response.data.entities;
 				$scope.getASneighbours(asNumber);
-				// on envoie les données pour traitement
-				$scope.$apply();
 			},
 			// si la requête échoue :
 			function(error) {
@@ -47,7 +48,8 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 			// si la requête passe :
 			function(response) {
 				console.log(response.data);
-				// on envoie les données pour traitement
+				$scope.ASdata['data']['neighbours'] = response.data.data;
+				$scope.$apply();
 			},
 			// si la requête échoue :
 			function(error) {

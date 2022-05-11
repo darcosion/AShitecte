@@ -80,6 +80,34 @@ md-input-container:not(.md-input-invalid) .md-errors-spacer {
     border-width: 1px;
     box-shadow: rgba(210, 250, 251, 0.1) 0px 10px 15px -3px, rgba(210, 250, 251, 0.05) 0px 4px 6px -2px;
 }
+
+.ASMenuDropdown.ng-hide {
+    top: -150vh;
+    opacity: 0;
+}
+
+.ASMenuDropdown {
+    position: absolute;
+    z-index: 1;
+    top: 10vh;
+    left: 45vh;
+    padding: 8px;
+    max-height: 85vh;
+    word-wrap: anywhere; /* sans ça il y a un overflow bizarre du texte... */
+    overflow-y: auto;
+
+    border-style: solid;
+    border-bottom-color: var(--color-solid-flash-border);
+    border-width: 1px;
+    background: rgb(9,11,10);
+    background: radial-gradient(circle, rgba(9,11,10,0.95) 30%, rgba(74,46,0,0.8) 31%, rgba(9,11,10,0.95) 33%);
+    transition: all 2s ease-in-out;
+    opacity: 1;
+}
+
+.ASMenuDropdown > pre {
+    overflow: unset !important;
+}
   
 /* le graph */
 #placeNetwork {
