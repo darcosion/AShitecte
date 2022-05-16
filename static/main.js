@@ -23,9 +23,8 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 			// si la requête passe :
 			function(response) {
 				$scope.ASresolving = true;
-				$scope.asNumber = asNumber;
-				console.log(response.data);
-				$scope.ASdata['data']['metadata'] = response.data.entities;
+				$scope.ASdata.ASnumber = asNumber;
+				$scope.ASdata.data.info = response.data.entities;
 				$scope.getASneighbours(asNumber);
 			},
 			// si la requête échoue :
@@ -47,8 +46,7 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 		$http(req).then(
 			// si la requête passe :
 			function(response) {
-				console.log(response.data);
-				$scope.ASdata['data']['neighbours'] = response.data.data;
+				$scope.ASdata.data.neighbours = response.data.data;
 				$scope.$apply();
 			},
 			// si la requête échoue :
@@ -57,6 +55,31 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 			}
 		);
 	};
+
+	// fonction de récupération d'une liste de CIDR appartenant à un AS par son ASN
+	$scope.getCIDRbyASN = function() {
+		// on crée une requête
+		let req = {
+			method : 'GET',
+			url : '/api/json/AS_to_CIDR/' + $scope.ASdata.ASnumber,
+			headers: {'Content-Type': 'application/json'},
+		};
+		// on récupère la liste des CIDR
+		$http(req).then(
+			// si la requête passe :
+			function(response) {
+				console.log(response.data);
+				$scope.ASdata.data.cidr = response.data.cidr_list;
+				$scope.$apply();
+			},
+			// si la requête échoue :
+			function(error) {
+				console.log(error);
+			}
+		);
+	};
+
+	console.log($scope);
  });
 
 AShiApp.controller("graphNetwork", function($scope, $rootScope, $http) {

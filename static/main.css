@@ -2,6 +2,7 @@
 :root {
     /* palette de couleur de base */
     --color-background-default: #090b0a;  /* var(--color-background-default) */
+    --color-background-second: rgb(9,11,10); /* var(--color-background-second) */
     --color-solid-flash-border: #d2fafb; /* var(--color-solid-flash-border) */
     --color-solid-vicious-border: #d69c3f; /* var(--color-solid-vicious-border) */
     --color-text: #dcf4f3; /* var(--color-text) */
@@ -99,15 +100,45 @@ md-input-container:not(.md-input-invalid) .md-errors-spacer {
     border-style: solid;
     border-bottom-color: var(--color-solid-flash-border);
     border-width: 1px;
-    background: rgb(9,11,10);
+    background: var(--color-background-second);
     background: radial-gradient(circle, rgba(9,11,10,0.95) 30%, rgba(74,46,0,0.8) 31%, rgba(9,11,10,0.95) 33%);
-    transition: all 2s ease-in-out;
+    transition: all 1.2s ease-in-out;
     opacity: 1;
 }
 
 .ASMenuDropdown > pre {
     overflow: unset !important;
 }
+
+.ASActionDropdown.ng-hide {
+    top: -150vh;
+    opacity: 0;
+}
+
+.ASActionDropdown {
+    position: absolute;
+    z-index: 1;
+    top: 10vh;
+    margin-left: 8px;
+    max-height: 85vh;
+    word-wrap: anywhere; /* sans ça il y a un overflow bizarre du texte... */
+    overflow-y: auto;
+
+    border-style: solid;
+    border-bottom-color: var(--color-solid-flash-border);
+    border-width: 1px;
+    background: var(--color-background-second);
+    background: radial-gradient(circle, rgba(9,11,10,0.95) 30%, rgba(74,46,0,0.8) 31%, rgba(9,11,10,0.95) 33%);
+    transition: all 1.2s ease-in-out;
+    opacity: 1;
+}
+
+.ASActionListIem {
+    background: var(--color-background-second) !important;
+    color: var(--color-text) !important;
+    border: 1px solid var(--color-solid-flash-border);
+}
+
   
 /* le graph */
 #placeNetwork {
