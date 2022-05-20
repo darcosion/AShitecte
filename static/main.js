@@ -26,6 +26,7 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 				$scope.ASdata.ASnumber = asNumber;
 				$scope.ASdata.data.info = response.data.entities;
 				$scope.getASneighbours(asNumber);
+				$scope.getCIDRbyASN();
 			},
 			// si la requête échoue :
 			function(error) {
@@ -78,6 +79,39 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 			}
 		);
 	};
+
+	// fonction de récupération des traceroutes d'un AS à partir de ses CIDR
+	$scope.scanDirectAsCIDR = function() {
+		if(!"cidr" in $scope.ASdata.data) {
+			console.log("Le scan ne peut être lancé : pas de liste de CIDR");
+		}else {
+			// on crée une requête
+			let req = {
+				method : 'POST',
+				url : '/api/json/traceroute',
+				headers: {'Content-Type': 'application/json'},
+				data : {'asnumber' : $scope.ASdata.ASnumber, 'cidr' : null}
+			};
+			// on parcours la liste des CIDR pour obtenir pour chaque CIDR un chemin intéressant
+			$scope.ASdata.data.cidr.forEach(function(cidr, index) {
+				let interval = 10000; // 5 secondes entre chaque scan
+      			setTimeout(function () {
+					let reqUniq = req;
+					reqUniq.data['cidr'] = cidr; // on ajout le CIDR qui est à chaque fois différent
+					$http(reqUniq).then(
+						// si la requête passe :
+						function(response) {
+							console.log(response.data);
+						},
+						// si la requête échoue :
+						function(error) {
+							console.log(error);
+						}
+					);
+				}, index * interval);
+			});
+		}
+	}
 
 	console.log($scope);
  });

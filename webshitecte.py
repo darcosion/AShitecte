@@ -3,6 +3,9 @@
 from flask import Flask, jsonify, render_template, request
 import json
 
+# import locaux
+import ashitecte
+
 app = Flask(__name__, template_folder='templates')
 app.config["CACHE_TYPE"] = "null"
 
@@ -22,6 +25,13 @@ def conversionAStoCIDR(asnumber):
                 list_return_ipcidr.append(i[0])
 
     return jsonify({'cidr_list' : list_return_ipcidr})
+
+@app.route('/api/json/traceroute', methods=['POST'])
+def traceroute():
+    if not 'cidr' in request.json:
+        return {'error': "malformed request"}
+    else:
+        return jsonify({'trace_list' : ashitecte.traceroute_fuzzing(request.json['asnumber'], request.json['cidr'])})
 
 if __name__ == "__main__":
     app.run(port=45456, debug=True)
