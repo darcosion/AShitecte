@@ -94,14 +94,14 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 			};
 			// on parcours la liste des CIDR pour obtenir pour chaque CIDR un chemin intéressant
 			$scope.ASdata.data.cidr.forEach(function(cidr, index) {
-				let interval = 10000; // 5 secondes entre chaque scan
+				let interval = 25000; // 25 secondes entre chaque scan
       			setTimeout(function () {
 					let reqUniq = req;
 					reqUniq.data['cidr'] = cidr; // on ajout le CIDR qui est à chaque fois différent
 					$http(reqUniq).then(
 						// si la requête passe :
 						function(response) {
-							console.log(response.data);
+							$scope.$broadcast('tracesEvent', {'traces' : response.data});
 						},
 						// si la requête échoue :
 						function(error) {
@@ -133,6 +133,125 @@ AShiApp.controller("graphNetwork", function($scope, $rootScope, $http) {
 		nodeDimensionsIncludeLabels: true, // OUUUIIIIII
 		randomize: true, // ça semble mettre les noeud dans leur ordre d'arrivée, ça me plait.
 		packComponents: true,
+	};
+
+	$scope.styles = [
+		{
+			selector: 'node',
+			css: {
+				'color' : '#dcf4f3',
+				'background-color' : '#d69c3f', // --fond-color-tres-noir-bleue
+				'border-width': 4,
+				'content': 'data(id)',
+				'text-outline-color': '#080808',
+				'text-outline-width' : 3,
+				'text-valign': 'center',
+				'text-halign': 'center'
+			},
+		},
+		{
+			selector: "node[type = 'AS']",
+			css: {
+				'background-color' : '#2f230e', // ground square
+				'border-width': 2,
+				'border-color': '#d69c3f', // vicious border
+			},
+		},
+		{
+			selector: ':parent',
+			css: {
+			  'text-valign': 'top',
+			  'text-halign': 'center',
+			},
+		},
+		{
+			selector: 'edge',
+			css: {
+					  'line-color' : '#000',
+					  'target-arrow-color' : '#00fffa', // --widget-bleue-tres-clair
+			  'curve-style': 'bezier',
+			  'target-arrow-shape': 'triangle'
+			},
+		},
+	];
+	$scope.cyto.style($scope.styles);
+
+	$scope.runLayout = function() {
+		$scope.layout = $scope.cyto.layout($scope.options);
+		$scope.layout.run();
+	}
+
+	$scope.$on('tracesEvent', function(event, args) {
+		args.traces.trace_list.forEach(function(trace) {
+			if(trace != null) {
+				$scope.createGraphByTraces(trace);
+			}
+		});
+	});
+
+	$scope.createGraphByTraces = function(trace) {
+		// on commence la création de la vue graphe
+		let nodes = [];
+		let edges = [];
+		let previousNode = null;
+		// on crée chaque noeud
+		trace.forEach(function(ipnode) {
+			// noeud
+			nodes.push(
+				{
+				group:'nodes',
+				data: {
+						id : ipnode[0],
+						label : ipnode[0],
+						type : 'IP',
+						data : ipnode,
+						data_ip : ipnode[0],
+						parent : ipnode[1],
+					},
+				}
+			);
+			// lien avec le noeud précédent
+			if(previousNode != null) {
+				edges.push(
+					{
+						group: 'edges',
+						data: {
+							id : previousNode[0] + ' - ' +  ipnode[0],
+							source: ipnode[0],
+							target: previousNode[0],
+						}
+					}
+				)
+			}
+			previousNode = ipnode;
+		});
+		// on crée les parents AS number
+		// en commencant par une liste d'AS
+		let as = trace.map(function(elem) {
+			return elem[1];
+		});
+		// on crée une liste d'AS unique
+		as = [... new Set(as)];
+		// on crée chaque noeud parent d'AS : 
+		as.forEach(function(asnode){
+			nodes.push(
+				{
+				group:'nodes',
+				data: {
+						id : asnode,
+						label : asnode,
+						type : 'AS',
+						data : asnode,
+					},
+				}
+			);
+		});
+		// on ajoute l'ensemble des ip & as au graph
+		$scope.cyto.add(nodes);
+		// on ajoute l'ensemble des lien au graph
+		$scope.cyto.add(edges);
+		// on actualise la vue
+		$scope.runLayout();
 	};
 });
 

@@ -13,15 +13,16 @@ def traceroute_scan(target, listipcidras, asnumber):
         for k, v in reversed(p.items()):
             ip = ipaddress.IPv4Address(v[0])
             if(ip.is_private):
-                list_return_ip.append(v[0])
+                list_return_ip.append((v[0], None))
                 continue
             else:
                 for i in listipcidras:
                     if(ip in i[0]):
                         if(asnumber == i[1]):
-                            list_return_ip.append(v[0])
+                            list_return_ip.append((v[0], i[1]))
                         else:
-                            break
+                            list_return_ip.append((v[0], i[1]))
+                            return list_return_ip
         return list_return_ip
     else:
         return None
