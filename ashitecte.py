@@ -28,7 +28,6 @@ def traceroute_scan(target, listipcidras, asnumber):
         return None
 
 def traceroute_fuzzing(asnumber, targetcidr):
-    print(targetcidr)
     with open('asinfo/routeviews-prefix2as-latest.json', 'r') as listcidr:
         listipcidras = [[ipaddress.IPv4Network(i[0]), i[1]] for i in json.loads(listcidr.read())]
         listcidr.close()

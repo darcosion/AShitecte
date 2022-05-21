@@ -24,6 +24,7 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 			function(response) {
 				$scope.ASresolving = true;
 				$scope.ASdata.ASnumber = asNumber;
+				$scope.ASdata.ASname = response.data.name;
 				$scope.ASdata.data.info = response.data.entities;
 				$scope.getASneighbours(asNumber);
 				$scope.getCIDRbyASN();
