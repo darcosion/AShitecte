@@ -140,12 +140,13 @@ AShiApp.controller("graphNetwork", function($scope, $rootScope, $http) {
 		{
 			selector: 'node',
 			css: {
-				'color' : '#dcf4f3',
-				'background-color' : '#d69c3f', // --fond-color-tres-noir-bleue
-				'border-width': 4,
+				'color' : '#e27b13',
+				'background-color' : '#000000', // --fond-color-tres-noir-bleue
+				'background-opacity' : 0.4,
+				'border-width': 2,
+				'border-color': '#d69c3f', // vicious border
 				'content': 'data(id)',
-				'text-outline-color': '#080808',
-				'text-outline-width' : 3,
+				'font-weight' : 'bolder',
 				'text-valign': 'center',
 				'text-halign': 'center'
 			},
@@ -153,9 +154,10 @@ AShiApp.controller("graphNetwork", function($scope, $rootScope, $http) {
 		{
 			selector: "node[type = 'AS']",
 			css: {
-				'background-color' : '#2f230e', // ground square
+				'background-color' : '#dcf4f3', // ground square
 				'border-width': 2,
 				'border-color': '#d69c3f', // vicious border
+				'background-opacity' : 0.1,
 			},
 		},
 		{
@@ -168,10 +170,11 @@ AShiApp.controller("graphNetwork", function($scope, $rootScope, $http) {
 		{
 			selector: 'edge',
 			css: {
-					  'line-color' : '#000',
-					  'target-arrow-color' : '#00fffa', // --widget-bleue-tres-clair
-			  'curve-style': 'bezier',
-			  'target-arrow-shape': 'triangle'
+				'line-color' : '#bde4e7',
+				'line-opacity' : 0.8,
+				'target-arrow-color' : '#d69c3f',
+				'curve-style': 'bezier',
+				'target-arrow-shape': 'triangle'
 			},
 		},
 	];
@@ -229,10 +232,11 @@ AShiApp.controller("graphNetwork", function($scope, $rootScope, $http) {
 		// on crée les parents AS number
 		// en commencant par une liste d'AS
 		let as = trace.map(function(elem) {
-			return elem[1];
+			if(elem[1] != null) { return elem[1]; }
 		});
 		// on crée une liste d'AS unique
 		as = [... new Set(as)];
+		console.log(as);
 		// on crée chaque noeud parent d'AS : 
 		as.forEach(function(asnode){
 			nodes.push(
@@ -254,6 +258,12 @@ AShiApp.controller("graphNetwork", function($scope, $rootScope, $http) {
 		// on actualise la vue
 		$scope.runLayout();
 	};
+
+	// évènement en cas de clic sur un noeud :
+	$scope.cyto.on('tap', 'node', function(evt){
+		// on envoie dans la console le noeud pour debug
+		console.log(evt.target);
+	});
 });
 
 angular.element(document).ready(function() {

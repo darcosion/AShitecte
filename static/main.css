@@ -4,9 +4,21 @@
     --color-background-default: #090b0a;  /* var(--color-background-default) */
     --color-background-second: rgb(9,11,10); /* var(--color-background-second) */
     --color-solid-flash-border: #d2fafb; /* var(--color-solid-flash-border) */
+    --color-solid-soft-border: #bde4e7; /* var(--color-solid-soft-border) */
     --color-solid-vicious-border: #d69c3f; /* var(--color-solid-vicious-border) */
     --color-solid-ground-square: #2f230e; /* var(--color-solid-vicious-border) */
     --color-text: #dcf4f3; /* var(--color-text) */
+    --color-test-second: #e27b13; /* var(--color-test-second) */
+}
+
+@font-face{
+    font-family:'fontawesome-webfont';
+    font-style:normal;
+    font-weight:900;
+    font-display:auto;
+    src:url(fonts/la-solid-900.ttf) format("ttf"),
+    url(fonts/la-solid-900.woff2) format("woff2"),
+    url(fonts/la-solid-900.woff) format("woff")
 }
 
 body {

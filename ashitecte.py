@@ -9,18 +9,24 @@ def traceroute_scan(target, listipcidras, asnumber):
     p, r = traceroute(target)
     if(target in p.get_trace().keys()):
         p = p.get_trace()[target]
+        # on supprime les doublons de target
+
         # cette sorcellerie permet de filtrer les IP en commençant par la fin et en retournant que les IP de l'AS
-        for k, v in reversed(p.items()):
+        for k, v in reversed(sorted(p.items())):
             ip = ipaddress.IPv4Address(v[0])
+            # on traite le cas d'une IP privée
             if(ip.is_private):
                 list_return_ip.append((v[0], None))
                 continue
             else:
+                # on trouve l'AS d'une IP et on l'ajoute
                 for i in listipcidras:
                     if(ip in i[0]):
                         if(asnumber == i[1]):
                             list_return_ip.append((v[0], i[1]))
                         else:
+                            # si l'AS n'est pas le notre, alors on peut jeter le reste du traceroute
+                            # car on cherche à mapper l'infra de l'AS cible, pas toute la route de nous à l'AS.
                             list_return_ip.append((v[0], i[1]))
                             return list_return_ip
         return list_return_ip
