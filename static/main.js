@@ -70,9 +70,30 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 		$http(req).then(
 			// si la requête passe :
 			function(response) {
-				console.log(response.data);
 				$scope.ASdata.data.cidr = response.data.cidr_list;
 				$scope.$apply();
+			},
+			// si la requête échoue :
+			function(error) {
+				console.log(error);
+			}
+		);
+	};
+
+	// fonction de récupération des CIDR des voisins d'un AS
+	$scope.getNeighboursCIDR = function(ASN) {
+		// on crée une requête
+		let req = {
+			method : 'GET',
+			url : '/api/json/AS_to_CIDR/' + ASN,
+			headers: {'Content-Type': 'application/json'},
+		};
+		// on récupère la liste des CIDR
+		$http(req).then(
+			// si la requête passe :
+			function(response) {
+				// on lance un scan depuis cette requête
+				$scope.getTraceNeighboursAS(ASN, response.data.cidr_list);
 			},
 			// si la requête échoue :
 			function(error) {
@@ -112,7 +133,45 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 				}, index * interval);
 			});
 		}
-	}
+	};
+
+	// fonction de récupération des traceroutes vers les voisins d'un AS à partir des CIDR des voisins
+	$scope.scanIndirectAsNeighbours = function() {
+		$scope.ASdata.data.neighbours.neighbours.forEach(function(voisin, index) {
+			let interval = 2000; // 2 secondes entre chaque scan
+			setTimeout(function () {
+				$scope.getNeighboursCIDR(voisin.asn);
+			}, index * interval);
+		});
+	};
+
+	$scope.getTraceNeighboursAS = function(ASN, list_cidr) {
+		// on crée une requête
+		let req = {
+			method : 'POST',
+			url : '/api/json/indirect_traceroute',
+			headers: {'Content-Type': 'application/json'},
+			data : {'asnumber' : $scope.ASdata.ASnumber, 'ASneighbour' : ASN, 'cidr' : null}
+		};
+		// on parcours les CIDR pour faire les requêtes : 
+		list_cidr.forEach(function(cidr, index) {
+			let interval = 8000; // 8 secondes entre chaque scan
+			setTimeout(function () {
+				let reqUniq = req;
+				reqUniq.data['cidr'] = cidr; // on ajout le CIDR qui est à chaque fois différent
+				$http(reqUniq).then(
+					// si la requête passe :
+					function(response) {
+						$scope.$broadcast('tracesEvent', {'traces' : response.data});
+					},
+					// si la requête échoue :
+					function(error) {
+						console.log(error);
+					}
+				);
+			}, index * interval);
+		});
+	};
 
 	console.log($scope);
  });
@@ -231,8 +290,11 @@ AShiApp.controller("graphNetwork", function($scope, $rootScope, $http) {
 		});
 		// on crée les parents AS number
 		// en commencant par une liste d'AS
-		let as = trace.map(function(elem) {
-			if(elem[1] != null) { return elem[1]; }
+		let as = []; 
+		trace.forEach(function(elem) {
+			if(elem[1] != null) {
+				as.push(elem[1]);
+			}
 		});
 		// on crée une liste d'AS unique
 		as = [... new Set(as)];

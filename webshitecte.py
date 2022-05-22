@@ -33,5 +33,12 @@ def traceroute():
     else:
         return jsonify({'trace_list' : ashitecte.traceroute_fuzzing(request.json['asnumber'], request.json['cidr'])})
 
+@app.route('/api/json/indirect_traceroute', methods=['POST'])
+def indirect_traceroute():
+    if not 'ASneighbour' in request.json:
+        return {'error': "malformed request"}
+    else:
+        return jsonify({'trace_list' : ashitecte.traceroute_neighbours(request.json['asnumber'], request.json['ASneighbour'], request.json['cidr'])})
+
 if __name__ == "__main__":
     app.run(port=45456, debug=True)

@@ -11,6 +11,7 @@
     --color-test-second: #e27b13; /* var(--color-test-second) */
 }
 
+/* spécifié manuellement car bug */
 @font-face{
     font-family:'fontawesome-webfont';
     font-style:normal;

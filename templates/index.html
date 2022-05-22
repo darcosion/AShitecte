@@ -45,13 +45,16 @@
             </div>
             <div class="header_form_right d-flex justify-content-around align-items-center"
             ng-class="{'displaced_left': ASresolving}">
-                <div class="md-block align-self-center ">
+                <div class="md-block align-self-center">
                     AS{{"{{asNumber}}"}}
                 </div>
                 <div class="md-block">
                     <md-button md-no-ink class="ASHbutton" ng-click="ASDataMenu = !ASDataMenu; ASActionMenu = false"><i class="las la-ellipsis-v"></i>&nbsp; AS Info</md-button>
-                    <div class="d-flex flex-wrap ng-hide ASMenuDropdown" ng-show="ASDataMenu">
-                        <pre>{{"{{ASdata|json}}"}}</pre>
+                    <div class="d-flex flex-column ng-hide ASMenuDropdown" ng-show="ASDataMenu">
+                        <div ng-repeat="(ASkey, ASvalue) in ASdata.data" class="p-2">
+                            <div>{{"{{ASkey}}"}}</div>
+                            <pre>{{"{{ASvalue|json}}"}}</pre>
+                        </div>
                     </div>
                 </div>
                 <div class="md-block">
@@ -62,7 +65,7 @@
                                 <div ng-click="scanDirectAsCIDR()">Scan directe</div>
                             </li>
                             <li class="list-group-item list-group-item-action list-group-item-dark ASActionListIem">
-                                <div>Scan indirecte</div>
+                                <div ng-click="scanIndirectAsNeighbours()">Scan indirecte</div>
                             </li>
                         </ul>
                     </div>
