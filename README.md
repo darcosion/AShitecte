@@ -29,7 +29,7 @@ python3 asinfo/collectas.py
 # si nécessaire, mise à jour du repo
 git pull
 # lancement de l'application
-sudo python3 webhitecte.py
+sudo python3 webshitecte.py
 ```
 
 Une fois cela fait, le shell devrait donner une adresse web sur laquelle aller, qui est l'interface web d'AShitecte.
