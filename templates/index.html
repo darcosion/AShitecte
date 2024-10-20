@@ -24,6 +24,8 @@
     
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='main.css')}}"></link>
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/icone/favicon.png')}}"/>
+
+        <script src="{{ url_for('static', filename='js/vue.global.min.js') }}"></script>
     </head>
     <body ng-controller="ParentCtrl">
         <!-- Formulaire de recherche -->
@@ -79,5 +81,11 @@
         </div>
 
         <script type="text/javascript" src="{{ url_for('static', filename='main.js')}}"></script>
+
+        <script src="{{ url_for('static', filename='js/quasar.umd.js')}}"></script>
+        <script src="{{ url_for('static', filename='js/fr.umd.prod.js')}}"></script>
+        <script src="{{ url_for('static', filename='js/svg-material-icons.umd.prod.js')}}"></script>
+        <script type="module" src="{{ url_for('static', filename='vuemain.js')}}">
+        </script>
     </body>
 </html>
