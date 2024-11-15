@@ -14,6 +14,10 @@ app.config["CACHE_TYPE"] = "null"
 def index():
     return render_template("index.html")
 
+@app.route('/vue')
+def indexvue():
+    return render_template("indexvue.html")
+
 @app.route('/api/json/AS_to_CIDR/<asnumber>')
 def conversionAStoCIDR(asnumber):
     list_return_ipcidr = []

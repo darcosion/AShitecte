@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang='fr'>
+    <head>
+        <meta charset ="UTF-8">
+        <title>AShitecte</title>
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}" />
+        <script type="text/javascript" src="{{ url_for('static', filename='js/cytoscape.min.js')}}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/layout-base.js')}}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/cose-base.js')}}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/cytoscape-fcose.js')}}"></script>    
+
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css')}}"></link>
+    
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/line-awesome.min.css')}}">
+    
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='main.css')}}"></link>
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/icone/favicon.png')}}"/>
+
+        <script src="{{ url_for('static', filename='js/vue.global.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body id="ASHApp">
+        <!-- Formulaire de recherche -->
+        <div class="header_form d-flex justify-content-around align-items-center">
+            <div class="header_form_left d-flex justify-content-around align-items-center">
+                <!-- titre -->
+                <div>
+                    <md-button md-no-ink class="">AShitecte</md-button>
+                </div>
+                <!-- input search AS -->
+                <div>
+                    <md-input-container class="md-block ASHinput" flex-gt-sm>
+                        <label>Numéro d'AS : </label>
+                        <input :value="ASdata.ASnumber">
+                    </md-input-container>
+                </div>
+                <!-- bouton validation search AS -->
+                <div>
+                    <button md-no-ink class="ASHbutton" @click="ASresolve">valider</button>
+                </div>
+            </div>
+            <div class="header_form_right d-flex justify-content-around align-items-center">
+                <div class="md-block align-self-center">
+                    AS{{"{{ASdata.ASname}}"}}
+                </div>
+                <div class="md-block">
+                    <md-button md-no-ink class="ASHbutton"><i class="las la-ellipsis-v"></i>&nbsp; AS Info</md-button>
+                    <div class="d-flex flex-column ng-hide ASMenuDropdown">
+                        <div class="p-2">
+                            <div>{{"{{ASkey}}"}}</div>
+                            <pre>{{"{{ASvalue|json}}"}}</pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-block">
+                    <md-button md-no-ink class="ASHbutton"><i class="las la-bars"></i>&nbsp; Actions</md-button>
+                    <div class="d-flex flex-wrap ng-hide ASActionDropdown">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item list-group-item-action list-group-item-dark ASActionListIem">
+                                <div>Scan directe</div>
+                            </li>
+                            <li class="list-group-item list-group-item-action list-group-item-dark ASActionListIem">
+                                <div>Scan indirecte</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- fenêtre de vue du graphe -->
+        <div id="placeNetwork" class="d-flex justify-content-around align-items-center">
+            <div id="mynetwork"></div>
+        </div>
+
+        <script src="{{ url_for('static', filename='js/quasar.umd.js')}}"></script>
+        <script src="{{ url_for('static', filename='js/fr.umd.prod.js')}}"></script>
+        <script src="{{ url_for('static', filename='js/svg-material-icons.umd.prod.js')}}"></script>
+        <script type="module" src="{{ url_for('static', filename='vuemain.js')}}">
+        </script>
+    </body>
+</html>
