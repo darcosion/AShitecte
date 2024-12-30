@@ -1,4 +1,7 @@
 // axios lib loaded before 
+const { createApp } = Vue;
+
+//Vue.use(VueMaterial.default);
 
 const app = Vue.createApp({
 	data() {
@@ -15,6 +18,7 @@ const app = Vue.createApp({
 	},
 	methods: {
     ASresolve() {
+      console.log(this);
       // verif AS format
       if(this.ASdata.ASname.startsWith('AS')) {
         this.ASdata.ASname = this.ASdata.ASname.slice(2);
@@ -42,6 +46,4 @@ const app = Vue.createApp({
 
 app.use(Quasar);
 Quasar.lang.set(Quasar.lang.fr);
-Quasar.iconSet.set(Quasar.iconSet.svgMaterialIcons);
 app.mount('#ASHApp');
-

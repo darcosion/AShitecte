@@ -1,0 +1,165 @@
+
+:root {
+    /* palette de couleur de base */
+    --color-background-default: #090b0a;  /* var(--color-background-default) */
+    --color-background-second: rgb(9,11,10); /* var(--color-background-second) */
+    --color-solid-flash-border: #d2fafb; /* var(--color-solid-flash-border) */
+    --color-solid-soft-border: #bde4e7; /* var(--color-solid-soft-border) */
+    --color-solid-vicious-border: #d69c3f; /* var(--color-solid-vicious-border) */
+    --color-solid-ground-square: #2f230e; /* var(--color-solid-vicious-border) */
+    --color-text: #dcf4f3; /* var(--color-text) */
+    --color-test-second: #e27b13; /* var(--color-test-second) */
+}
+
+/* spécifié manuellement car bug */
+@font-face{
+    font-family:'fontawesome-webfont';
+    font-style:normal;
+    font-weight:900;
+    font-display:auto;
+    src:url(fonts/la-solid-900.ttf) format("ttf"),
+    url(fonts/la-solid-900.woff2) format("woff2"),
+    url(fonts/la-solid-900.woff) format("woff")
+}
+
+body {
+    background-color: black;
+    color: var(--color-text);
+}
+
+.header_form {
+    background-color: var(--color-background-default);
+    color: var(--color-text);
+
+    border-bottom: solid;
+    border-bottom-color: var(--color-solid-flash-border);
+    border-bottom-width: 1px;
+    box-shadow: rgba(210, 250, 251, 0.6) 0px 2px 18px 0px;
+}
+
+.header_form_left {
+    height: 10vh;
+    width: 100%;
+    min-width: 100%;
+    transition: all 2s ease-in;
+}
+
+.header_form_right{
+    height: 10vh;
+    width: 50%;
+    overflow: hidden;
+    margin-left: 50vh;
+    transition: all 2s ease-out;
+}
+
+/* transition lors d'un lancement de recherche */
+
+.header_form_left.reduced_left {
+    width: 50% !important;
+    min-width: 50% !important;
+}
+
+.header_form_right.displaced_left {
+    margin-left: 00vh !important;
+}
+
+md-input-container label {
+    color: var(--color-text) !important;
+    opacity: 0.8;
+}
+
+md-input-container .md-input {
+    color: var(--color-text) !important;
+}
+
+md-input-container:not(.md-input-invalid) .md-errors-spacer {
+    display: none;
+}
+
+.ASHinput {
+    border-style: solid;
+    border-color: rgba(210, 250, 251, 0.4);
+    border-width: 1px;
+}
+
+.ASHbutton {
+    border-style: solid;
+    border-bottom-color: var(--color-solid-flash-border);
+    border-width: 1px;
+    box-shadow: rgba(210, 250, 251, 0.1) 0px 10px 15px -3px, rgba(210, 250, 251, 0.05) 0px 4px 6px -2px;
+}
+
+.ASMenuDropdown.ng-hide {
+    top: -150vh;
+    opacity: 0;
+}
+
+.ASMenuDropdown {
+    position: absolute;
+    z-index: 1;
+    top: 10vh;
+    left: 45vh;
+    padding: 8px;
+    max-height: 85vh;
+    word-wrap: anywhere; /* sans ça il y a un overflow bizarre du texte... */
+    overflow-y: auto;
+
+    border-style: solid;
+    border-bottom-color: var(--color-solid-flash-border);
+    border-width: 1px;
+    background: var(--color-background-second);
+    background: radial-gradient(circle, rgba(9,11,10,0.95) 30%, rgba(74,46,0,0.8) 31%, rgba(9,11,10,0.95) 33%);
+    transition: all 1.2s ease-in-out;
+    opacity: 1;
+}
+
+.ASMenuDropdown > pre {
+    overflow: unset !important;
+}
+
+.ASActionDropdown.ng-hide {
+    top: -150vh;
+    opacity: 0;
+}
+
+.ASActionDropdown {
+    position: absolute;
+    z-index: 1;
+    top: 10vh;
+    margin-left: 8px;
+    max-height: 85vh;
+    word-wrap: anywhere; /* sans ça il y a un overflow bizarre du texte... */
+    overflow-y: auto;
+
+    border-style: solid;
+    border-bottom-color: var(--color-solid-flash-border);
+    border-width: 1px;
+    background: var(--color-background-second);
+    background: radial-gradient(circle, rgba(9,11,10,0.95) 30%, rgba(74,46,0,0.8) 31%, rgba(9,11,10,0.95) 33%);
+    transition: all 1.2s ease-in-out;
+    opacity: 1;
+}
+
+.ASActionListIem {
+    background: var(--color-background-second) !important;
+    color: var(--color-text) !important;
+    border: 1px solid var(--color-solid-flash-border);
+}
+
+  
+/* le graph */
+#placeNetwork {
+    width: 90vh;
+    height: 90vh;
+    min-width: 100%;
+}
+
+#mynetwork{
+    width: 95%;
+    height: 95%;
+    background-image: radial-gradient(#041f3b, #03060b);
+    border-style: solid;
+    border-color: var(--color-solid-vicious-border);
+    border-width: 1px;
+    box-shadow: rgba(214, 156, 63, 0.6) 0px 30px 60px -12px, rgba(255, 255, 255, 0.3) 0px 18px 36px -18px;
+}
