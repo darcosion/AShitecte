@@ -22,6 +22,11 @@
     url(fonts/la-solid-900.woff) format("woff")
 }
 
+/*fix remove dropdown spin button */
+.dropdown-toggle::after {
+    display:none;
+}
+
 body {
     background-color: black;
     color: var(--color-text);
@@ -35,6 +40,8 @@ body {
     border-bottom-color: var(--color-solid-flash-border);
     border-bottom-width: 1px;
     box-shadow: rgba(210, 250, 251, 0.6) 0px 2px 18px 0px;
+
+    transition: all 2s ease-in;
 }
 
 .header_form_left {
@@ -89,55 +96,17 @@ md-input-container:not(.md-input-invalid) .md-errors-spacer {
     box-shadow: rgba(210, 250, 251, 0.1) 0px 10px 15px -3px, rgba(210, 250, 251, 0.05) 0px 4px 6px -2px;
 }
 
-.ASMenuDropdown.ng-hide {
-    top: -150vh;
-    opacity: 0;
+.ASMenuDialog {
+    max-width: none !important;
 }
 
-.ASMenuDropdown {
-    position: absolute;
-    z-index: 1;
-    top: 10vh;
-    left: 45vh;
-    padding: 8px;
-    max-height: 85vh;
+.ASMenuDialogCard {
+    max-width: none !important;
+}
+
+.ASMenuDialogPre {
     word-wrap: anywhere; /* sans ça il y a un overflow bizarre du texte... */
-    overflow-y: auto;
-
-    border-style: solid;
-    border-bottom-color: var(--color-solid-flash-border);
-    border-width: 1px;
     background: var(--color-background-second);
-    background: radial-gradient(circle, rgba(9,11,10,0.95) 30%, rgba(74,46,0,0.8) 31%, rgba(9,11,10,0.95) 33%);
-    transition: all 1.2s ease-in-out;
-    opacity: 1;
-}
-
-.ASMenuDropdown > pre {
-    overflow: unset !important;
-}
-
-.ASActionDropdown.ng-hide {
-    top: -150vh;
-    opacity: 0;
-}
-
-.ASActionDropdown {
-    position: absolute;
-    z-index: 1;
-    top: 10vh;
-    margin-left: 8px;
-    max-height: 85vh;
-    word-wrap: anywhere; /* sans ça il y a un overflow bizarre du texte... */
-    overflow-y: auto;
-
-    border-style: solid;
-    border-bottom-color: var(--color-solid-flash-border);
-    border-width: 1px;
-    background: var(--color-background-second);
-    background: radial-gradient(circle, rgba(9,11,10,0.95) 30%, rgba(74,46,0,0.8) 31%, rgba(9,11,10,0.95) 33%);
-    transition: all 1.2s ease-in-out;
-    opacity: 1;
 }
 
 .ASActionListIem {

@@ -1,0 +1,51 @@
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 100;
+  src: url(/static/fonts/Roboto100.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: url(/static/fonts/Roboto300.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/static/fonts/Roboto400.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url(/static/fonts/Roboto500.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url(/static/fonts/Roboto700.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 900;
+  src: url(/static/fonts/Roboto900.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-weight: 400;
+  src: url(/static/fonts/MaterialIcons-Regular.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'FontAwesome';
+  src:   url('/static/fonts/la-solid-900.woff2') format('woff2'), 
+  url('/static/fonts/la-solid-900.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}

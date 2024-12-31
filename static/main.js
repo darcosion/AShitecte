@@ -104,6 +104,7 @@ AShiApp.controller("ParentCtrl", function($scope, $http) {
 
 	// fonction de récupération des traceroutes d'un AS à partir de ses CIDR
 	$scope.scanDirectAsCIDR = function() {
+		console.log("test");
 		if(!"cidr" in $scope.ASdata.data) {
 			console.log("Le scan ne peut être lancé : pas de liste de CIDR");
 		}else {

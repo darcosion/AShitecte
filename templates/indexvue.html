@@ -10,8 +10,9 @@
 
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css')}}"></link>
     
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/line-awesome.min.css')}}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/quasar.prod.css')}}">
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/line-awesome.min.css')}}">
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/quasar.prod.css')}}">
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/quasarfonts.css')}}">
     
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='mainvue.css')}}"></link>
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/icone/favicon.png')}}"/>
@@ -20,17 +21,22 @@
         <script src="{{ url_for('static', filename='js/axios.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/quasar.umd.js') }}"></script>
         <script src="{{ url_for('static', filename='js/fr.umd.prod.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/line-awesome.umd.prod.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/svg-line-awesome.js') }}"></script>
 
     </head>
     <body id="ASHApp">
         <div class="q-pa-md">
             <q-layout view="hHh lpR fFf">
-
+                <!-- barre de recherche et de manipulation -->
                 <q-header elevated class="header_form">
                   <q-toolbar>
                     <q-toolbar-title>
                         <div class="row justify-around items-center">
+                            <!-- titre -->
                             <div>Ashitecte</div>
+                            
+                            <!-- input de recherche d'AS -->
                             <div>
                                 <q-input
                                     square filled dark
@@ -41,14 +47,63 @@
                                     class="ASHinput"
                                 />
                             </div>
+
+                            <!-- bouton de lancement de la recherche -->
                             <div>
                                 <q-btn outline square class="ASHbutton" label="Valider" @click="ASresolve" />
+                            </div>
+
+                            <!-- affichage de l'AS courant -->
+                            <div v-show="ASresolving">
+                                AS{{"{{ASdata.ASnumber}}"}}
+                            </div>
+
+                            <!-- bouton de visualisation des info de l'AS -->
+                            <div v-show="ASresolving">
+                              <q-btn outline square label="AS INFO" icon="las la-ellipsis-v" @click="ASDataMenu = true" />
+                              <q-dialog v-model="ASDataMenu"
+                                transition-show="slide-down"
+                                transition-hide="slide-up"
+                                class="ASMenuDialog">
+                                <q-card dark class="ASMenuDialogCard">
+                                  <q-card-section>
+                                    <div class="text-h6">AS INFO</div>
+                                  </q-card-section>
+                          
+                                  <q-card-section class="q-pt-none">
+                                    <pre class="ASMenuDialogPre">
+                                      {{"{{ASdata.data}}"}}
+                                    </pre>
+                                  </q-card-section>
+                                </q-card>
+                              </q-dialog>
+                            </div>
+
+                            <!-- liste déroulante des analyses possibles -->
+                            <div v-show="ASresolving">
+                                <q-btn outline square dark
+                                                    label="ACTIONS"
+                                                    icon="las la-bars"
+                                >
+                                  <q-menu dark>
+                                    <q-list>
+                                      <q-item clickable v-close-popup @click="scanDirectAsCIDR">
+                                        <q-item-section>Scan directe</q-item-section>
+                                      </q-item>
+                                      <q-item clickable v-close-popup @click="onItemClick">
+                                        <q-item-section>Scan indirecte</q-item-section>
+                                      </q-item>
+                                    </q-list>
+                                  </q-menu>
+                                </q-btn>
+                                
                             </div>
                         </div>
                     </q-toolbar-title>
                   </q-toolbar>
                 </q-header>
             
+                <!-- graphe de manipulation et visualiation -->
                 <q-page-container>
                     <q-page>
                         <div id="placeNetwork">
