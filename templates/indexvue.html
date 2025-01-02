@@ -88,10 +88,10 @@
                                   <q-menu dark>
                                     <q-list>
                                       <q-item clickable v-close-popup @click="scanDirectAsCIDR">
-                                        <q-item-section>Scan directe</q-item-section>
+                                        <q-item-section>Scan direct</q-item-section>
                                       </q-item>
                                       <q-item clickable v-close-popup @click="onItemClick">
-                                        <q-item-section>Scan indirecte</q-item-section>
+                                        <q-item-section>Scan indirect</q-item-section>
                                       </q-item>
                                     </q-list>
                                   </q-menu>
@@ -105,9 +105,9 @@
             
                 <!-- graphe de manipulation et visualiation -->
                 <q-page-container>
-                    <q-page>
-                        <div id="placeNetwork">
-                            <div id="mynetwork"></div>
+                    <q-page class="">
+                        <div id="placeNetwork" >
+                            <div id="mynetwork" ></div>
                         </div>
                     </q-page>
                 </q-page-container>

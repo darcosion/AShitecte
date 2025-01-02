@@ -94,9 +94,10 @@ const app = Vue.createApp({
             }).then(response => {
               // handle success
               console.log(response.data);
-              if('traces' in response.data){
-                response.data.traces.trace_list.forEach(function(trace) {
+              if('trace_list' in response.data){
+                response.data.trace_list.forEach(function(trace) {
                   if(trace != null) {
+                    console.log(trace);
                     vueThis.createGraphByTraces(trace);
                   }
                 });
@@ -183,6 +184,7 @@ const app = Vue.createApp({
       };
 
       this.createGraphByTraces = function(trace) {
+        console.log("createGraphe");
         // on commence la création de la vue graphe
         let nodes = [];
         let edges = [];
