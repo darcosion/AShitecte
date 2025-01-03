@@ -2,6 +2,10 @@ AShitecte est un outil dont l'objectif est de permettre le mappage d'un maximum 
 
 AShitecte donne la possibilité de visualiser ces informations sur une vue par graph de manière à voir principalement les IP, routes et AS.
 
+Pour cela, deux scans sont implémentés actuellement : 
+ - scan directs - récupère la liste des CIDR de l'AS et affiche chaque noeud résolu de l'AS cible + dernier noeud d'AS précédent
+ - scan indirects - récupère la liste des AS voisins de l'AS cible via API du RIPE et tente de résoudre chaque CIDR de chaque voisin pour afficher chaque chemin qui passe par l'AS cible sur le graphe
+
 # Exemple
 
 ![Exemple de visualisation d'AShitecte](doc/AShitecte.png)
