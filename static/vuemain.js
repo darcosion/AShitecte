@@ -79,6 +79,23 @@ const app = Vue.createApp({
         // always executed
       });
     },
+    // fonction de récupération des CIDR des voisins d'un AS
+    getNeighboursCIDR(ASN) {
+      // on crée une requête
+      axios.get('/api/json/AS_to_CIDR/' + ASN ,{
+        headers: {'Content-Type': 'application/json'},
+      }).then(response => {
+        // on lance un scan depuis cette requête
+        this.getTraceNeighboursAS(ASN, response.data.cidr_list);
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+    },
     // fonction de récupération des traceroutes d'un AS à partir de ses CIDR
     scanDirectAsCIDR() {
       if(!"cidr" in this.ASdata.data) {
@@ -86,7 +103,7 @@ const app = Vue.createApp({
       }else {
         // on parcours la liste des CIDR pour obtenir pour chaque CIDR un chemin intéressant
         this.ASdata.data.cidr.forEach(function(cidr, index) {
-          let vueThis = this;
+          let vueThis = this; // objet pour passer le contexte dans le setTimeout
           let interval = 25000; // 25 secondes entre chaque scan
           setTimeout(function () {
             axios.post('/api/json/traceroute' , {'asnumber' : vueThis.ASdata.ASnumber, 'cidr' : cidr} ,{
@@ -113,6 +130,47 @@ const app = Vue.createApp({
           }, index * interval, vueThis);
         }, this);
       }
+    },
+    // fonction de génération des traceroutes d'un CIDR
+    getTraceNeighboursAS(ASN, list_cidr) {
+      list_cidr.forEach(function(cidr, index) {
+        let vueThis = this; // objet pour passer le contexte dans le setTimeout
+        let interval = 8000; // 8 secondes entre chaque scan
+        setTimeout(function () {
+          // on crée une requête
+          axios.post('/api/json/indirect_traceroute', 
+            {'asnumber' : vueThis.ASdata.ASnumber, 'ASneighbour' : ASN, 'cidr' : cidr} ,
+            { headers: {'Content-Type': 'application/json'},
+          }).then(response => {
+              console.log(response.data);
+              if('trace_list' in response.data){
+                response.data.trace_list.forEach(function(trace) {
+                  if(trace != null) {
+                    console.log(trace);
+                    vueThis.createGraphByTraces(trace);
+                  }
+                });
+              }
+          })
+          .catch(error => {
+            // handle error
+            console.log(error);
+          })
+          .finally(function () {
+            // always executed
+          });
+        }, index * interval, vueThis);
+      }, this);
+    },
+    // fonction de récupération des traceroutes vers les voisins d'un AS à partir des CIDR des voisins
+    scanIndirectAsNeighbours() {
+      this.ASdata.data.neighbours.neighbours.forEach(function(voisin, index) {
+        let vueThis = this; // objet pour passer le contexte dans le setTimeout
+        let interval = 2000; // 2 secondes entre chaque scan
+        setTimeout(function () {
+          vueThis.getNeighboursCIDR(voisin.asn);
+        },  index * interval, vueThis);
+      }, this);
     },
     // fonction de création de l'objet graph
     CreateCytoGraph() {
