@@ -12,10 +12,6 @@ app.config["CACHE_TYPE"] = "null"
 
 @app.route('/')
 def index():
-    return render_template("index.html")
-
-@app.route('/vue')
-def indexvue():
     return render_template("indexvue.html")
 
 @app.route('/api/json/AS_to_CIDR/<asnumber>')
