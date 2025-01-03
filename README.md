@@ -12,7 +12,16 @@ Pour cela, deux scans sont implémentés actuellement :
 
 # Mise en place
 
-## Installation 
+## Installation automatique 
+
+```bash
+apt install git python3 python3-pip
+git clone https://github.com/darcosion/AShitecte
+cd AShitecte
+./install.sh
+```
+
+## Installation manuelle
 
 ```bash
 apt install git python3 python3-pip
@@ -32,8 +41,10 @@ En premier lieu, ouvrir un bash depuis le repository cloné en local.
 python3 asinfo/collectas.py
 # si nécessaire, mise à jour du repo
 git pull
+# placement dans l'environnement de l'application
+. ./activate.sh
 # lancement de l'application
-sudo python3 webshitecte.py
+./deploy.sh
 ```
 
 Une fois cela fait, le shell devrait donner une adresse web sur laquelle aller, qui est l'interface web d'AShitecte.
