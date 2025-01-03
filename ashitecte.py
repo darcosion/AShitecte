@@ -32,7 +32,10 @@ def traceroute_scan(target, listipcidras, asnumber):
                                 return list_return_ip
                             else:
                                 continue
-        return list_return_ip
+        if(len(list_return_ip) == 1):
+            return None
+        else:
+            return list_return_ip
     else:
         return None
 
